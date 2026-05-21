@@ -3,116 +3,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NVD Agro Website</title>
+    <title>NVD International Exim | Premium Agro Exports</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-        
-        header {
-            background-color: #2c5f2d;
-            color: white;
-            padding: 1rem 0;
+        /* Base Styles */
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: #333; overflow-x: hidden; }
+
+        /* FIX: Prevents section headings from hiding under the sticky navbar */
+        section[id] { scroll-margin-top: 90px; }
+    
+        /* Navbar & Brand */
+        .navbar-brand img { height: 55px; width: auto; }
+        .tagline {
+            display: block;
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+            color: #2d6a4f;
+            font-weight: 700;
+            margin-top: -2px;
+            text-transform: uppercase;
             text-align: center;
         }
-        
-        nav {
-            background-color: #1e4620;
-            padding: 1rem;
+
+        /* Hero Slider */
+        .hero-section {
+            min-height: 80vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            padding: 60px 20px;
         }
+        .hero-overlay {
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.45));
+            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; z-index: 1;
+        }
+        .hero-content { position: relative; z-index: 2; width: 100%; max-width: 900px; }
+
+        /* Product Cards */
+        .product-card { transition: transform 0.3s, box-shadow 0.3s; border: none; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+        /* .product-card img { height: 230px; object-fit: cover; } */
         
-        nav a {
+        .product-card img { 
+            height: 230px; 
+            object-fit: contain;
+            background-color: #fff; 
+            padding: 10px; 
+        }
+
+        /* .btn-quote { background-color: #2d6a4f; border: none; font-weight: 600; padding: 12px; transition: 0.3s; color: white; }
+        .btn-quote:hover { background-color: #45798c; color: white; } */
+
+        .btn-quote { 
+            background-color: #2d6a4f; 
+            color: white;
+            border: none;
+            transition: all 0.3s ease; /* Smooth transition */
+        }
+
+        .btn-quote:hover { 
+            background-color: #1b4332; /* Darker green */
+            transform: translateY(-3px); /* Lifts up */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Deep shadow */
+            color: white;
+        }
+        .btn-primary { background-color: #2d6a4f; border: none; font-weight: 600; }
+
+        .section-padding { padding: 80px 0; }
+
+        /* About Us Styling */
+        .about-section { padding: 80px 0; background-color: #ffffff; }
+        .about-image { border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; height: auto; }
+        .feature-box {
+            padding: 30px;
+            border-radius: 12px;
+            background: #f8f9fa;
+            border-bottom: 4px solid #2d6a4f;
+            transition: 0.3s;
+            height: 100%;
+        }
+        .feature-box:hover { transform: translateY(-5px); background: #ffffff; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .feature-icon { font-size: 2.5rem; color: #2d6a4f; margin-bottom: 15px; }
+
+        /* Mobile Specific Tweaks */
+        @media (max-width: 768px) {
+            .section-padding { padding: 50px 0; }
+            .navbar-brand img { height: 45px; }
+            .tagline { font-size: 0.55rem; }
+            .hero-section { min-height: 60vh; padding: 40px 15px; }
+            .hero-content h1 { font-size: 2rem !important; line-height: 1.2; }
+            .hero-content p { font-size: 1rem !important; }
+            .contact-info-box { text-align: center; margin-bottom: 40px; }
+        }
+
+
+        .premium-footer {
+            /* Multi-layer background: Texture on top, Dark gradient on bottom */
+            background: 
+                url("https://images.unsplash.com/photo-1612744220701-2281691eaf24?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"), 
+                linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
+            background-repeat: repeat, no-repeat;
+            /* border-top: 4px solid #198754;  */
+            background-size: auto, cover;
+            background-position: center center;
+            border-top: 3px solid #2d6a4f;
+            position: relative;
+            color: white;
+            width: 100%; /* Ensures the container itself spans full width */
+        }
+
+        .footer-logo {
+            max-height: 80px;
+            width: auto;
+        }
+
+        /* Fix visibility for gray text on dark background */
+        .text-light-gray {
+            color: #cccccc !important;
+        }
+
+        .copyright-row {
+            color: #ffffff !important; /* Forces the bottom text to be visible */
+            opacity: 0.9;
+        }
+
+        /* Circular Social Icons like the image you shared */
+        .social-circle {
+            width: 35px;
+            height: 35px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
             text-decoration: none;
-            margin: 0 1rem;
+            transition: 0.3s all ease;
         }
-        
-        nav a:hover {
-            text-decoration: underline;
-        }
-        
-        main {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        
-        section {
-            margin-bottom: 2rem;
-            padding: 1rem;
-            background-color: #f4f4f4;
-            border-radius: 5px;
-        }
-        
-        h1 {
-            color: #2c5f2d;
-        }
-        
-        h2 {
-            color: #2c5f2d;
-            margin-bottom: 1rem;
-        }
-        
-        footer {
-            background-color: #2c5f2d;
+
+        .social-circle:hover {
+            background-color: #198754;
+            border-color: #198754;
             color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
+            transform: translateY(-3px);
+        }
+
+        .footer-link {
+            color: #cccccc;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #198754;
+            padding-left: 5px;
+        }
+
+        .border-bottom-success {
+            border-bottom: 2px solid #198754;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>NVD Agro Website</h1>
-        <p>Welcome to NVD Agriculture</p>
-    </header>
-    
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex flex-column align-items-center" href="#">
+                <img src="NVD_LOGO2.jpg" alt="NVD International Logo">
+                <span class="tagline">GLOBAL AGRO TRADE | CONNECTING MARKETS</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center mt-3 mt-lg-0">
+                    <li class="nav-item"><a class="nav-link px-3" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary text-white ms-lg-3 px-4 py-2 mt-2 mt-lg-0" href="#contact">Inquiry</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="4000">
+                <div class="hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('slider1_Image.png');">
+                    <div class="container hero-content">
+                        <h1 class="display-4 fw-bold">Advanced Export Packaging</h1>
+                        <p class="lead">Ensuring farm freshness through international-grade sorting and packing standards.</p>
+                        <a href="#products" class="btn btn-primary btn-lg px-5 py-3">View Quality Standards</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="4000">
+                <div class="hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1724597500306-a4cbb7d1324e?q=80&w=1600&auto=format&fit=crop');">
+                    <div class="container hero-content">
+                        <h1 class="display-3 fw-bold">Direct Global Logistics</h1>
+                        <p class="lead">Efficient supply chain from Indian farm gates to international ports.</p>
+                        <a href="#contact" class="btn btn-primary btn-lg px-5 py-3">Get Export Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="4000">
+                <div class="hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600&auto=format&fit=crop');">
+                    <div class="container hero-content">
+                        <h1 class="display-3 fw-bold">Bulk Supply Expertise</h1>
+                        <p class="lead">Specialized in large-scale procurement and customized vegetable packaging.</p>
+                        <a href="#about" class="btn btn-primary btn-lg px-5 py-3">Our Infrastructure</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <section id="products" class="section-padding bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Our Premium Export Range</h2>
+                <div class="mx-auto bg-success" style="height: 4px; width: 60px;"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card product-card h-100 shadow-sm">
+                        <img src="https://plus.unsplash.com/premium_photo-1723914019663-3b802465920e?w=600" class="card-img-top" alt="Onions">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h5 class="card-title fw-bold">Fresh Onions</h5>
+                            <p class="card-text text-muted small">A-Grade quality, long shelf life, and pungent aroma sourced directly from farmers.</p>
+                            <div class="mt-auto">
+                                <span class="badge bg-success mb-3">Available in Bulk</span>
+                                <a href="#contact" class="btn btn-quote w-100">Get A Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card product-card h-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1599987141071-f5810d32e21a?q=80&w=600" class="card-img-top" alt="Chilies">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h5 class="card-title fw-bold">Green Chilies</h5>
+                            <p class="card-text text-muted small">Spicy and fresh Indian chilies. Export-grade sorting and specialized packing.</p>
+                            <div class="mt-auto">
+                                <span class="badge bg-success mb-3">Global Shipping</span>
+                                <a href="#contact" class="btn btn-quote w-100">Get A Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <div class="card product-card h-100 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1615485925600-97237c4fc1ec?q=80&w=600" class="card-img-top" alt="Pomegranate">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h5 class="card-title fw-bold">Pomegranate</h5>
+                            <p class="card-text text-muted small">Bhagwa variety, deep red pearls, high juice content, and premium size selection.</p>
+                            <div class="mt-auto">
+                                <span class="badge bg-success mb-3">Organic Certified</span>
+                                <a href="#contact" class="btn btn-quote w-100">Get A Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <div class="card product-card h-100 shadow-sm">
+                        <!-- <span class="position-absolute top-0 start-0 badge rounded-pill bg-warning m-2">New</span> -->
+                        <img src="https://images.unsplash.com/photo-1675586677399-2dbd468cad2f?q=80&w=1174&auto=format&fit=crop" class="card-img-top" alt="Fresh Bananas">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h5 class="card-title fw-bold">Fresh Bananas</h5>
+                            <p class="card-text text-muted small">Premium quality bananas sourced from the best plantations for global export.</p>
+                            <div class="mt-auto">
+                                <span class="badge bg-success mb-3">Newly added</span>
+                                <a href="#contact" class="btn btn-quote w-100">Get A Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <div class="card product-card h-100 shadow-sm">
+                        <!-- <span class="position-absolute top-0 start-0 badge rounded-pill bg-warning m-2">New</span> -->
+                        <img src="https://images.unsplash.com/photo-1725195398648-f3454b552b20?q=80&w=1106&auto=format&fit=crop" class="card-img-top" alt="Fresh Green Grapes">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h5 class="card-title fw-bold">Fresh Green Grapes</h5>
+                            <p class="card-text text-muted small">Sweet, seedless, and crunchy. Expertly packed to maintain freshness during transit.</p>
+                            <div class="mt-auto">
+                                <span class="badge bg-success mb-3">Newly added</span>
+                                <a href="#contact" class="btn btn-quote w-100">Get A Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <h6 class="text-success fw-bold text-uppercase">Who We Are</h6>
+                    <h2 class="display-5 fw-bold mb-4">Connecting Indian Farms to the Global Table</h2>
+                    <p class="lead text-muted">NVD International Exim is a premier export-import house based in Maharashtra, India, specializing in the global distribution of high-quality agro-commodities.</p>
+                    <p>Our Mission - <B>“To empower farmers with sustainable solutions, modern technology, and reliable knowledge for a more productive future. To support agricultural growth through innovation, education, and responsible farming practices."</B></p>
+                    <p>We pride ourselves on bridging the gap between local Indian farmers and international markets. We ensure that every shipment meets global food safety standards.</p>
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <h3 class="fw-bold text-success">100%</h3>
+                            <p class="small text-muted">Quality Inspection</p>
+                        </div>
+                        <div class="col-6">
+                            <h3 class="fw-bold text-success">24/7</h3>
+                            <p class="small text-muted">Logistics Support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1595246140625-573b715d11dc?q=80&w=1000&auto=format&fit=crop" alt="Agriculture Export" class="about-image">
+                </div>
+            </div>
+            <div class="row mt-5 g-4">
+                <div class="col-md-4">
+                    <div class="feature-box text-center">
+                        <div class="feature-icon">🌱</div>
+                        <h5 class="fw-bold">Fresh Procurement</h5>
+                        <p class="text-muted small">Sourced directly from the fertile belts of Maharashtra.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box text-center">
+                        <div class="feature-icon">📦</div>
+                        <h5 class="fw-bold">Custom Packaging</h5>
+                        <p class="text-muted small">Specialized mesh bags and ventilated crates tailored for export.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box text-center">
+                        <div class="feature-icon">🌍</div>
+                        <h5 class="fw-bold">Global Standards</h5>
+                        <p class="text-muted small">Adhering to international grading and phytosanitary requirements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 contact-info-box">
+                    <h2 class="fw-bold">Contact Us</h2>
+                    <p class="text-muted lead">Ready for a customized export quote? Reach out to our team today.</p>
+                    <hr class="my-4">
+                    <p class="mb-1"><strong>Email Us:</strong></p>
+                    <p class="text-success fw-bold">info@nvdinternationalexim.com</p>
+                    <p class="mb-1 mt-3"><strong>Main Office:</strong></p>
+                    <p>Maharashtra, India</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-4 shadow border-0">
+                        <form name="inquiry" method="POST" data-netlify="true">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Full Name</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Email Address</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Product Interest</label>
+                                <select name="product" class="form-select">
+                                    <option>Onions</option>
+                                    <option>Green Chilies</option>
+                                    <option>Pomegranate</option>
+                                    <option>Banana</option>
+                                    <option>Grapes</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Message</label>
+                                <textarea name="message" class="form-control" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 py-3 mt-2 shadow-sm">Send Request</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<footer class="premium-footer pt-5 pb-3 mt-auto">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <img src="NVD_LOGO2.jpg" alt="NVD International Logo" class="footer-logo mb-3">
+                <p class="small text-light-gray mb-4">Maharashtra, India</p>
+                <div class="d-flex gap-2 social-container">
+                    <a href="#" class="social-circle"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="social-circle"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="social-circle"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="social-circle"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <h5 class="fw-bold mb-4 text-white border-bottom-success pb-2">Contact Details</h5>
+                <div class="small d-flex flex-column gap-3 text-light-gray">
+                    <p class="mb-0"><i class="bi bi-geo-alt-fill text-success me-2"></i> Maharashtra, India</p>
+                    <p class="mb-0"><i class="bi bi-envelope-at text-success me-2"></i> info@nvdinternationalexim.com</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <h5 class="fw-bold mb-4 text-white border-bottom-success pb-2">Quick Links</h5>
+                <ul class="list-unstyled small d-flex flex-column gap-3">
+                    <li><a href="#" class="footer-link"><i class="bi bi-chevron-right text-success small me-1"></i> Home</a></li>
+                    <li><a href="#products" class="footer-link"><i class="bi bi-chevron-right text-success small me-1"></i> Products</a></li>
+                    <li><a href="#about" class="footer-link"><i class="bi bi-chevron-right text-success small me-1"></i> About</a></li>
+                    <li><a href="#contact" class="footer-link"><i class="bi bi-chevron-right text-success small me-1"></i> Inquiry</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <h5 class="fw-bold mb-4 text-white border-bottom-success pb-2">Let’s Grow Together!</h5>
+                <p class="small text-light-gray">Partner with NVD International for premium, export-grade produce and reliable, end-to-end supply chain solutions.</p>
+            </div>
+        </div>
+
+        <hr class="border-secondary opacity-25 my-4">
+        
+        <div class="row small copyright-row">
+            <div class="col-md-12 text-center text-md-center">
+                <p class="mb-0">&copy; 2026 NVD International Exim. All Rights Reserved.</p>
+            </div>
+            <!-- <div class="col-md-6 text-center text-md-end">
+                <p class="mb-0">Powered by <span class="text-success fw-bold">NVD Tech</span></p>
+            </div> -->
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <main>
-        <section id="home">
-            <h2>Welcome</h2>
-            <p>Welcome to NVD Agro. We are committed to providing the best agricultural solutions and products.</p>
-        </section>
-        
-        <section id="about">
-            <h2>About Us</h2>
-            <p>NVD Agro is a leading provider of agricultural services and products. With years of experience, we help farmers achieve their goals.</p>
-        </section>
-        
-        <section id="services">
-            <h2>Our Services</h2>
-            <ul>
-                <li>Crop Consulting</li>
-                <li>Soil Testing</li>
-                <li>Seed Supply</li>
-                <li>Farm Equipment</li>
-            </ul>
-        </section>
-        
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>Email: info@nvdagro.com</p>
-            <p>Phone: +1-800-AGRO-123</p>
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; 2026 NVD Agro Website. All rights reserved.</p>
-    </footer>
 </body>
 </html>
